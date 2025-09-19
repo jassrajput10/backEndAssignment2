@@ -1,18 +1,5 @@
-/**
- * This represents the sample employees
- */
-export interface employees {
-    id: number;
-    name: string;
-    position: string;
-    department: string;
-    email: string;
-    phone: string;
-    branchId: number;
-}
+import { employees } from "src/api/v1/models/employees"
 
-
- 
 // exporting a array with all the sample employee data
  
 export const employee: employees[] = [

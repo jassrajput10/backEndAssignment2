@@ -1,12 +1,4 @@
-/**
- * this represents the branch data.
- */
-export interface branches {
-    id: number;
-    name: string;
-    address: string;
-    phone: string;
-}
+import { branches } from "src/api/v1/models/branches"
 
 /**
  * exporting a array with all the sample branch data
