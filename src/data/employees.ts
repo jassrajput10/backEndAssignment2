@@ -2,7 +2,7 @@
  * This represents the sample employees
  */
 export interface employees {
-    id: string;
+    id: number;
     name: string;
     position: string;
     department: string;
@@ -11,22 +11,12 @@ export interface employees {
     branchId: number;
 }
 
- 
-// this is the interface for the employees
-export interface Employees {
-    id: number,
-    name: string,
-    position: string,
-    department: string,
-    email: string,
-    phone: string,
-    branchId: number,
-}
+
  
 // exporting a array with all the sample employee data
  
-export const employee: Employees[] = [
-    {id:1, name: "Alice Johnson", position:"Branch Manager", department:"Management", email:"alice.johnson@pixell-river.com", phone:"604-555-0148", branchId: 1 },
+export const employee: employees[] = [
+    {id: 1, name: "Alice Johnson", position:"Branch Manager", department:"Management", email:"alice.johnson@pixell-river.com", phone:"604-555-0148", branchId: 1 },
     {id:2 , name: "Amandeep Singh", position:"Customer Service Representative", department:"Customer Service", email:"amandeep.singh@pixell-river.com", phone:"780-555-0172", branchId: 2  },
     {id:3 , name: "Maria Garcia", position:"Loan Officer", department:"Loans", email:"maria.garcia@pixell-river.com", phone:"204-555-0193", branchId:3  },
     {id:4 , name: "James Wilson", position:"IT Support Specialist", department:"IT", email:"james.wilson@pixell-river.com", phone:"604-555-0134", branchId:1},
