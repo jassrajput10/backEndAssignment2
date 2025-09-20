@@ -3,14 +3,14 @@
 /**
  * This represents the sample employees
  */
-export interface employees {
+export interface Employee {
     id: number;
     name: string;
     position: string;
     department: string;
     email: string;
     phone: string;
-    branchId: number;
+    branchId: string;
 }
 
 
