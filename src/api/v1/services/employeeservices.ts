@@ -83,3 +83,7 @@ export const deleteEmployee = async (id:number): Promise<void> => {
 
     employees.splice(index, 1);
 };
+
+//export const getEmployeeById = async (
+  //  id: number
+//): Promise<Employee
