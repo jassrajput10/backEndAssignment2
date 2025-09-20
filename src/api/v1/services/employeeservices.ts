@@ -67,3 +67,19 @@ export const updateEmployee = async (
 
     return structuredClone(employees[index]);
 };
+
+/**
+ * Deletes a branch from storage
+ * @param id - The ID of the branch to delete
+ * @throws Error if branch with given ID is not found
+ */
+export const deleteEmployee = async (id:number): Promise<void> => {
+    const index: number = employees.findIndex((employee: Employee) => employee.id === id);
+
+    if (index === -1) {
+        throw new Error(`Employee with this Id ${id} not found`);
+
+    }
+
+    employees.splice(index, 1);
+};
