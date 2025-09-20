@@ -37,7 +37,33 @@ export const createEmployee = async (data: {
         branchId: data.branchId,
     };
 
+    // this will add the new employee.
     employees.push(newdata);
 
     return structuredClone(newdata);
+};
+
+/**
+ * Updates (replaces) an existing employee
+ * @param id - The ID of the employee to update
+ * @param employeeData - this will update the given fields in employeedata 
+ * @returns The updated employee
+ * @throws Error if employee with given ID is not found
+ */
+export const updateEmployee = async (
+    id: number,
+    employeedata: Pick<Employee, "name" | "position" | "department" | "email" | "phone" | "branchId">
+): Promise<Employee> => {
+    const index: number = employees.findIndex((employee: Employee) => employee.id === id)
+
+    if (index === -1) {
+        throw new Error(`Employee with this Id ${id} not found`);
+
+    }
+    employees[index] = {
+        ...employees[index],
+        ...employeedata,
+    };
+
+    return structuredClone(employees[index]);
 };
