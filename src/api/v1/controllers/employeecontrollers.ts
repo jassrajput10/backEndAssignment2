@@ -27,3 +27,55 @@ export const getAllEmployees = async (
         next(error);
     }
 };
+
+/**
+ * Manages requests, reponses, and validation to create an Employee
+ * @param req - The express Request
+ * @param res  - The express Response
+ * @param next - The express middleware chaining function
+ * this function is going to create the employee or respond with bad request if any
+ * field is missing.
+ */
+export const createEmployee = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    try {
+        if(!req.body.name) {
+            res.status(HTTP_STATUS.BAD_REQUEST).json({
+                message: "Employee name is required.",
+            });
+        } else if (!req.body.position) {
+            res.status(HTTP_STATUS.BAD_REQUEST).json({
+                message: "Employee position is required.",
+            });
+        } else if (!req.body.department) {
+            res.status(HTTP_STATUS.BAD_REQUEST).json({
+                message: "Employee department is required.",
+            }); 
+        } else if (!req.body.email) {
+            res.status(HTTP_STATUS.BAD_REQUEST).json({
+                message: "Employee email is required.",
+            });
+        } else if (!req.body.phone) {
+            res.status(HTTP_STATUS.BAD_REQUEST).json({
+                message: "Employee phone is required.",
+            }); 
+        } else if (!req.body.branchId) {
+            res.status(HTTP_STATUS.BAD_REQUEST).json({
+                message: "Employee branchId is required.",
+            });
+        } else {
+            const { name, position, department, email, phone, branchId} = req.body;
+
+            const newdata: Employee = await employeeservice.createEmployee({ name, position, department, email, phone, branchId });
+            res.status(HTTP_STATUS.CREATED).json({
+                message: "Employee created successfully",
+                data: newdata,
+            });
+        }     
+    } catch (error: unknown) {
+        next(error);
+    }
+};
