@@ -1,5 +1,5 @@
 import { Employee } from "../models/employees";
-import { employees } from "src/data/employees";
+import { employees } from '../../../data/employees';
 
  
 
@@ -42,6 +42,8 @@ export const createEmployee = async (data: {
 
     return structuredClone(newdata);
 };
+
+
 
 /**
  * Updates (replaces) an existing employee

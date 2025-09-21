@@ -5,8 +5,8 @@ const router: Router = express.Router();
 
 // routes are declare by passing the refrences her
 router.get("/", employeeController.getAllEmployees);
-router.get("/", employeeController.createEmployee);
-router.get("/:id", employeeController.updateEmployee);
-router.get("/:id", employeeController.deleteEmployee);
+router.post("/", employeeController.createEmployee);
+router.put("/:id", employeeController.updateEmployee);
+router.delete("/:id", employeeController.deleteEmployee);
 
 export default router;
