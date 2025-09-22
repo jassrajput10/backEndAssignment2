@@ -119,36 +119,58 @@ describe("Employee Controller", () => {
     });
 
     describe('updateEmployee', () => {
-        it('should handle successful update', async () => {
-        
-           const updateData = { position: "Senior Software Developer" };
-           const mockUpdatedEmployee: Employee = {
-              id: 1,
-              name: "Alice Johnson",
-              position: "Senior Software Developer",
-              department: "Management",
-              email: "alice.johnson@pixell-river.com",
-              phone: "604-555-0148",
-              branchId: "1"
-        };
-      
-            (employeeservice.updateEmployee as jest.Mock).mockResolvedValue(mockUpdatedEmployee);
+    it('should handle successful update', async () => {
+      // Arrange
+      const employeeId = 1;
+      const updateData = { position: "Senior Software Developer" };
+      const mockUpdatedEmployee: Employee = {
+        id: employeeId,
+        name: "Alice Johnson",
+        position: "Senior Software Developer",
+        department: "Management",
+        email: "alice.johnson@pixell-river.com",
+        phone: "604-555-0148",
+        branchId: "1"
+      };
+      mockReq.params = { id: employeeId.toString() };
+      mockReq.body = updateData;
+      (employeeservice.updateEmployee as jest.Mock).mockResolvedValue(mockUpdatedEmployee);
 
-      
-                await employeeController.updateEmployee(
-                    mockReq as Request,
-                    mockRes as Response,
-                    mockNext
-                );
+      // Act
+      await employeeController.updateEmployee(
+        mockReq as Request,
+        mockRes as Response,
+        mockNext
+      );
 
+      // Assert
+      expect(employeeservice.updateEmployee).toHaveBeenCalledWith(employeeId, updateData);
+      expect(mockRes.status).toHaveBeenCalledWith(HTTP_STATUS.OK);
+      expect(mockRes.json).toHaveBeenCalledWith({
+        message: "Employee data updated successfully",
+        data: mockUpdatedEmployee
+      });
+    });
+
+    it('should handle invalid or missing ID parameter', async () => {
     
-            expect(employeeservice.updateEmployee).toHaveBeenCalledWith(employeeId, updateData);
-            expect(mockRes.status).toHaveBeenCalledWith(HTTP_STATUS.OK);
-            expect(mockRes.json).toHaveBeenCalledWith({
-                success: true,
-                message: "Employee updated successfully",
-                data: mockUpdatedEmployee
-            });
-        });
-    });    
-});
+      const updateData = { position: "Senior Developer" };
+      mockReq.params = { id: "invalid" };
+      mockReq.body = updateData;
+
+      
+      await employeeController.updateEmployee(
+        mockReq as Request,
+        mockRes as Response,
+        mockNext
+      );
+
+      
+      expect(mockRes.status).toHaveBeenCalledWith(HTTP_STATUS.BAD_REQUEST);
+      expect(mockRes.json).toHaveBeenCalledWith({
+        message: "Invalid employee ID"
+      });
+    });
+  });
+
+});   
