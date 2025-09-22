@@ -64,6 +64,65 @@ describe("Employee Controller", () => {
 
             expect(mockNext).toHaveBeenCalledWith(mockError);
             
-        })
+        });
     });
-})
+
+    // this test will create the employee
+    describe("createEmployee", () => {
+        it("should handle successful creation of employee", async () => {
+            const mockBody = {
+                name: "John Doe",
+                position: "Software Developer",
+                department: "IT",
+                email: "john.doe@pixell-river.com",
+                phone: "555-0123",
+                branchId: "1"
+            };
+
+            const mockEmployee: Employee = {
+                id: 30,
+                ...mockBody
+            };
+            mockReq.body = mockBody;
+            (employeeservice.createEmployee as jest.Mock).mockReturnValue(mockEmployee);
+
+            await employeeController.createEmployee(
+                mockReq as Request,
+                mockRes as Response,
+                mockNext
+            );
+
+            expect(mockRes.status).toHaveBeenCalledWith(HTTP_STATUS.CREATED);
+            expect(mockRes.json).toHaveBeenCalledWith({
+                message: "Employee created successfully",
+                data: mockEmployee,
+            });
+        });
+
+        //this will test the missing parameters in creating employee
+
+        it("should return 400 when required paprameters are missing", async() => {
+            mockReq.body = { name: "John Doe" };
+
+            await employeeController.createEmployee(
+                mockReq as Request,
+                mockRes as Response,
+                mockNext
+            );
+
+            expect(mockRes.status).toHaveBeenCalledWith(HTTP_STATUS.BAD_REQUEST);
+            expect(mockRes.json).toHaveBeenCalledWith({
+                message: "Employee position is required."
+            
+            });
+        });  
+    });
+
+    describe("updateEmployee", () => {
+        it("should handle successfull update", async () => {
+            const mockBody = {
+                position: ""
+            }
+        })
+    })
+});
