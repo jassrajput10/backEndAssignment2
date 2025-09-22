@@ -171,6 +171,53 @@ describe("Employee Controller", () => {
         message: "Invalid employee ID"
       });
     });
+
+     describe('deleteEmployee', () => {
+    it('should handle successful deletion', async () => {
+      // Arrange
+      const employeeId = 1;
+      mockReq.params = { id: employeeId.toString() };
+      (employeeservice.deleteEmployee as jest.Mock).mockResolvedValue(undefined);
+
+      // Act
+      await employeeController.deleteEmployee(
+        mockReq as Request,
+        mockRes as Response,
+        mockNext
+      );
+
+      // Assert
+      expect(employeeservice.deleteEmployee).toHaveBeenCalledWith(employeeId);
+      expect(mockRes.status).toHaveBeenCalledWith(HTTP_STATUS.OK);
+      expect(mockRes.json).toHaveBeenCalledWith({
+        success: true,
+        message: "Employee deleted successfully"
+      });
+    });
+
+    it('should handle invalid or missing ID', async () => {
+      // Arrange
+      mockReq.params = { id: "invalid" };
+
+      // Act
+      await employeeController.deleteEmployee(
+        mockReq as Request,
+        mockRes as Response,
+        mockNext
+      );
+
+      // Assert
+      expect(mockRes.status).toHaveBeenCalledWith(HTTP_STATUS.BAD_REQUEST);
+      expect(mockRes.json).toHaveBeenCalledWith({
+        success: false,
+        message: "Invalid employee ID"
+      });
+      expect(employeeservice.deleteEmployee).not.toHaveBeenCalled();
+    });
+  });
+});
+
   });
 
-});   
+  
+
