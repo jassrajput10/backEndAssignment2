@@ -16,9 +16,10 @@ describe("Employee Routes", () => {
     afterEach(() => {
         jest.clearAllMocks();
     });
-
+    
+    
     describe("GET /api/v1/routes/", () => {
-        it("should getAllEmployees controller", async () => {
+        it("should call getAallEmployees controller", async () => {
             await request(app).get("/api/v1/routes/");
             expect(employeeController.getAllEmployees).toHaveBeenCalled();
         });
