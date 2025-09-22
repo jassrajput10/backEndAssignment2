@@ -118,11 +118,37 @@ describe("Employee Controller", () => {
         });  
     });
 
-    describe("updateEmployee", () => {
-        it("should handle successfull update", async () => {
-            const mockBody = {
-                position: ""
-            }
-        })
-    })
+    describe('updateEmployee', () => {
+        it('should handle successful update', async () => {
+        
+           const updateData = { position: "Senior Software Developer" };
+           const mockUpdatedEmployee: Employee = {
+              id: 1,
+              name: "Alice Johnson",
+              position: "Senior Software Developer",
+              department: "Management",
+              email: "alice.johnson@pixell-river.com",
+              phone: "604-555-0148",
+              branchId: "1"
+        };
+      
+            (employeeservice.updateEmployee as jest.Mock).mockResolvedValue(mockUpdatedEmployee);
+
+      
+                await employeeController.updateEmployee(
+                    mockReq as Request,
+                    mockRes as Response,
+                    mockNext
+                );
+
+    
+            expect(employeeservice.updateEmployee).toHaveBeenCalledWith(employeeId, updateData);
+            expect(mockRes.status).toHaveBeenCalledWith(HTTP_STATUS.OK);
+            expect(mockRes.json).toHaveBeenCalledWith({
+                success: true,
+                message: "Employee updated successfully",
+                data: mockUpdatedEmployee
+            });
+        });
+    });    
 });
