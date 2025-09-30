@@ -46,23 +46,23 @@ export const createEmployee = async (
             res.status(HTTP_STATUS.BAD_REQUEST).json({
                 message: "Employee name is required.",
             });
-        } else if (!req.body.position) {
+        } if (!req.body.position) {
             res.status(HTTP_STATUS.BAD_REQUEST).json({
                 message: "Employee position is required.",
             });
-        } else if (!req.body.department) {
+        } if (!req.body.department) {
             res.status(HTTP_STATUS.BAD_REQUEST).json({
                 message: "Employee department is required.",
             }); 
-        } else if (!req.body.email) {
+        } if (!req.body.email) {
             res.status(HTTP_STATUS.BAD_REQUEST).json({
                 message: "Employee email is required.",
             });
-        } else if (!req.body.phone) {
+        } if (!req.body.phone) {
             res.status(HTTP_STATUS.BAD_REQUEST).json({
                 message: "Employee phone is required.",
             }); 
-        } else if (!req.body.branchId) {
+        } if (!req.body.branchId) {
             res.status(HTTP_STATUS.BAD_REQUEST).json({
                 message: "Employee branchId is required.",
             });
@@ -93,6 +93,37 @@ export const updateEmployee = async (
     next: NextFunction
 ): Promise<void> => {
     try {
+        if (Number.isNaN(Number(req.params.id))) {
+            res.status(HTTP_STATUS.BAD_REQUEST).json({
+                message:"Invalid ID number"
+            });
+        } else if (!req.body.name) {
+            res.status(HTTP_STATUS.BAD_REQUEST).json({
+                message:"Employee name is required"
+            });
+        } else if (!req.body.position) {
+            res.status(HTTP_STATUS.BAD_REQUEST).json({
+                message:"Employee position is required"
+            });
+        } else if (!req.body.department) {
+            res.status(HTTP_STATUS.BAD_REQUEST).json({
+                message:"Employee department is required"
+            });
+        } else if (!req.body.email) {
+            res.status(HTTP_STATUS.BAD_REQUEST).json({
+                message:"Employee email is required"
+            });
+        } else if (!req.body.phone) {
+            res.status(HTTP_STATUS.BAD_REQUEST).json({
+                message:"Employee phone is required"
+            });
+        } else if (req.body.branchId === undefined || req.body.branchId === null) {
+            res.status(HTTP_STATUS.BAD_REQUEST).json({
+                message: "Employee branchId is required"
+            });
+        } else {
+
+
         // extracting employee id
         
         const id: number = Number(req.params.id);
@@ -107,7 +138,8 @@ export const updateEmployee = async (
         res.status(HTTP_STATUS.OK).json({
             message: "Employee data updated successfully",
             data: updatedEmployee,
-        });
+        })
+        }
     } catch (error: unknown) {
         next(error);
     };
