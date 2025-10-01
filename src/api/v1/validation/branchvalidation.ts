@@ -16,7 +16,12 @@ export const branchSchemas = {
             "any.required": "Address is required",
             "string.empty": "Address cannot be empty",
         }),
-
+        
+        // Joi validation for phone of branches
+        phone: Joi.string().required().messages({
+            "any.required": "Phone number is required",
+            "string.empty": "Phone number cannot be empty", 
+        }),
 
     }
 }
