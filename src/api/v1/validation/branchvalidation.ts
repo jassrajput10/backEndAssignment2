@@ -1,4 +1,4 @@
-import Joi from "joi";
+import Joi, { any } from "joi";
 
 export const branchSchemas = {
     // POST /api/v1/branches - Create new branch
@@ -11,5 +11,12 @@ export const branchSchemas = {
             "string.empty": "Name cannot be empty",
         }),
         
+        // Joi validation for address of branches
+        address: Joi.string().required().messages({
+            "any.required": "Address is required",
+            "string.empty": "Address cannot be empty",
+        }),
+
+
     }
 }
