@@ -27,7 +27,33 @@ export const employeeSchemas = {
             branchId: Joi.string().required().messages({
                 "any.required": "branchId is required",
                 "string.empty": "branchId cannot be empty",
-            })
-        })
+            }),
+        }),
+    },
+
+    // PUT /api/v1/routes/:id Update employee
+update: {
+    params: Joi.object({
+        id: Joi.string().required().messages({
+            "any.required": "Employee ID is required",
+            "string.empty": "Employee ID cannot be empty",
+        }),
+    }),
+    body: Joi.object({
+            name: Joi.string().optional().messages({
+                "string.empty": "Name cannot be empty",
+            }),
+            position: Joi.string().optional().messages({
+                "string.empty": "Position cannot be empty",
+            }),
+            email: Joi.string().optional().messages({
+                "string.empty": "Email cannot be empty",
+            }),
+            branchId: Joi.string().optional().messages({
+                "string.empty": "BranchId cannot be empty",
+            }),    
+                    
+        }),    
     }
-}
+
+};

@@ -23,5 +23,9 @@ export const branchSchemas = {
             "string.empty": "Phone number cannot be empty", 
         }),
 
-    }
+    },
+
+    // PUT 
+
 }
+
