@@ -1,0 +1,33 @@
+import Joi from "joi";
+
+export const employeeSchemas = {
+    // POST /api/v1/routes - Create new employees
+    create: {
+        body: Joi.object({
+
+            // Joi validation for name of employees
+            name: Joi.string().required().messages({
+                "any.required": "Name is required",
+                "string.empty": "Name cannot be empty",
+            }),
+
+            // Joi validation for the position of employees
+            position: Joi.string().required().messages({
+                "any.required": "Position is required",
+                "string.empty": "Position cannot be empty",
+            }),
+
+            // Joi validation for email of employees
+            email: Joi.string().required().messages({
+                "any.required": "Email is required",
+                "string.empty": "Email cannot be empty",
+            }),
+
+            // Joi valdation for branchId of employees
+            branchId: Joi.string().required().messages({
+                "any.required": "branchId is required",
+                "string.empty": "branchId cannot be empty",
+            })
+        })
+    }
+}
