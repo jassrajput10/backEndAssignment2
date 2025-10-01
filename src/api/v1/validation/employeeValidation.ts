@@ -1,5 +1,9 @@
 import Joi from "joi";
 
+/**
+ * Employee schema organised bt request type
+ * This validation will ensure that required fields are present and filled according to the given requirements
+ */
 export const employeeSchemas = {
     // POST /api/v1/routes - Create new employees
     create: {

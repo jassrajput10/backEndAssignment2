@@ -22,10 +22,31 @@ export const branchSchemas = {
             "any.required": "Phone number is required",
             "string.empty": "Phone number cannot be empty", 
         }),
+        
 
     },
 
-    // PUT 
-
-}
+       // PUT /api/v1/branches/:id  update branch employee
+   update: {
+       params: Joi.object({
+           id: Joi.string().required().messages({
+               "any.required": "Branch ID is required",
+               "string.empty": "Branch ID cannot be empty",
+           }),
+       }),
+       body: Joi.object({
+               name: Joi.string().optional().messages({
+                   "string.empty": "Name cannot be empty",
+               }),
+               address: Joi.string().optional().messages({
+                   "string.empty": "address cannot be empty",
+               }),
+               phone: Joi.string().optional().messages({
+                   "string.empty": "phone cannot be empty",
+               }),
+                 
+                       
+           }), 
+    },
+};
 
