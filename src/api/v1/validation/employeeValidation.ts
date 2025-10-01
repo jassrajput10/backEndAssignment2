@@ -60,6 +60,7 @@ update: {
         }),    
     },
 
+     // PUT /api/v1/routes/:id delete employee
     delete: {
         params: Joi.object({
             id: Joi.string().required().messages({
