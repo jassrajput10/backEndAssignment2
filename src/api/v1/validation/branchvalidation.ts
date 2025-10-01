@@ -48,5 +48,16 @@ export const branchSchemas = {
                        
            }), 
     },
+
+
+     // PUT /api/v1/branches/:id  delete branch employee
+    delete: {
+        params: Joi.object({
+            id: Joi.string().required().messages({
+                "any.required": "Branch ID is required",
+                "string.empty": "Branch ID cannot be empty",
+            }),
+        }),
+    },
 };
 
