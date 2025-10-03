@@ -4,6 +4,7 @@ export const branchSchemas = {
     // POST /api/v1/branches - Create new branch
 
     create: {
+        body: Joi.object({
 
         // Joi validation for name of branches
         name: Joi.string().required().messages({
@@ -22,7 +23,7 @@ export const branchSchemas = {
             "any.required": "Phone number is required",
             "string.empty": "Phone number cannot be empty", 
         }),
-        
+    }),  
 
     },
 
