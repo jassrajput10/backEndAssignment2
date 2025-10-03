@@ -25,6 +25,12 @@ interface ValidationOptions {
     stripparams?: boolean;
 }
 
+/** Created an Express middleware function  that validates the incoming request based on provided schemas
+ * 
+ * @param schemas - An object containing validation schema for request body, params, and query
+ * @param validation - Validation options for stripping request payloads
+ * @returns Express middleware function that perfoms validation
+ */
 export const validateRequest = (
     schemas: RequestSchema,
     validation: ValidationOptions = {}
@@ -60,13 +66,58 @@ export const validateRequest = (
                     stripUnknown: shouldStripData,
                 });
                 
-                // this will show the detail of the error of the functions
+                // this will show the detail of the error in the functions
                 if(error) {
-                    errors.push(...error.details.map(
-                        (detail) => `${requestSection}: ${detail.message}`
-                    ))
+                    errors.push(
+                        ...error.details.map(
+                            (detail) => `${requestSection}: ${detail.message}`
+                        )
+                    );
+
+                } else if (shouldStripData) {
+                    return strippedData;
                 }
+
+                return requestdata;
+            };
+
+            //validates the body string paramters
+            if (schemas.body) {
+                req.body = ValidateRequestSection(
+                    schemas.body,
+                    req.body,
+                    "Body",
+                    validation.stripBody ?? STRIP_BODY
+                );
             }
+
+            // validates the params string parameters
+            if (schemas.params) {
+                req.params = ValidateRequestSection(
+                    schemas.params,
+                    req.params,
+                    "Params",
+                    validation.stripparams ?? STRIP_PARAMS
+                );
+            }
+
+            //validates the query string parameters
+            if (schemas.query) {
+                req.query = ValidateRequestSection(
+                    schemas.query,
+                    req.query,
+                    "Query",
+                    validation.stripQuery ?? STRIP_QUERY
+                );
+            }
+
+            // this wil return a error response is any validations are found.
+            if(errors.length > 0) {
+                return res.status(HTTP_STATUS.BAD_REQUEST).json({
+                    error: `Validation error: ${errors.join(", ")}`,
+                });
+            }
+            next();
         } catch (error: unknown) {
             res.status(HTTP_STATUS.BAD_REQUEST).json({
                 error: "Request validation failed for unknown reason",
