@@ -1,6 +1,6 @@
 import express, { Router } from "express";
 import { validateRequest } from "../types/middleware/validate";
-import { employeeSchemas } from "../validation/employeeValidation";
+import { employeeSchemas } from "../../../api/v1/validation/employeeValidation";
 import * as employeeController from "../controllers/employeecontrollers";
 
 const router: Router = express.Router();

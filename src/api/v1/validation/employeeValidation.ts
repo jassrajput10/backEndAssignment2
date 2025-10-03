@@ -50,6 +50,9 @@ update: {
             position: Joi.string().optional().messages({
                 "string.empty": "Position cannot be empty",
             }),
+            department: Joi.string().optional().messages({
+                "string.empty": "Department cannot be empty",
+            }),
             email: Joi.string().optional().messages({
                 "string.empty": "Email cannot be empty",
             }),
