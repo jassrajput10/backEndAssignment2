@@ -1,13 +1,40 @@
+import {
+    QuerySnapshot,
+    DocumentData,
+    DocumentSnapshot,
+} from "firebase-admin/firestore";
+
 import type { branches } from "../../../api/v1/models/branches";
 import { branchData } from "../../../data/branches";
+import {
+    createDocument,
+    getDocuments,
+    getDocumentById,
+    updateDocument,
+    deleteDocument,
+} from "../repositories/firestoreRepository";
 
+const COLLECTION: string = "branches";
 
 /**
  * gets all branches
  * @returns a full list of the branches
  */
 export const getAllBranches = async(): Promise<branches[]> => {
-    return structuredClone(branchData);
+    try {
+        const snapshot: QuerySnapshot = await getDocuments(COLLECTION);
+        const branches: branches[] = snapshot.docs.map((doc) => {
+            const data: DocumentData = doc.data();
+            return {
+                id: Number(doc.id),
+                ...data,
+            } as branches;
+        });
+         return structuredClone(branchData);
+    } catch (error: unknown) {
+        throw error;
+    }
+    
 };
 
 
