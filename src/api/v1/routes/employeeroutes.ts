@@ -1,7 +1,7 @@
 import express, { Router } from "express";
-import { validateRequest } from "../types/middleware/validate";
-import { employeeSchemas } from "../../../api/v1/validation/employeeValidation";
 import * as employeeController from "../controllers/employeecontrollers";
+import { validateRequest } from "../types/middleware/validate";
+import { employeeSchemas } from "../validation/employeeValidation";
 
 const router: Router = express.Router();
 
@@ -17,6 +17,10 @@ router.put(
     validateRequest(employeeSchemas.update),
     employeeController.updateEmployee
 );
-router.delete("/:id", employeeController.deleteEmployee);
+router.delete(
+    "/:id",
+    validateRequest(employeeSchemas.delete),
+    employeeController.deleteEmployee
+);
 
 export default router;

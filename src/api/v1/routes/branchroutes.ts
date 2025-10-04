@@ -1,7 +1,7 @@
 import express, { Router  } from "express";
-import { validateRequest } from "../types/middleware/validate";
-import { branchSchemas } from "../../../api/v1/validation/branchValidation";
 import * as branchController from "../controllers/branchcontroller";
+import { validateRequest } from "../types/middleware/validate";
+import { branchSchemas } from "../validation/branchValidation";
 
 const router: Router = express.Router();
 
@@ -16,6 +16,10 @@ router.put(
     validateRequest(branchSchemas.update),
     branchController.updateBranch
 );
-router.delete("/:id", branchController .deleteBranch);
+router.delete(
+    "/:id",
+    validateRequest(branchSchemas.delete),
+    branchController.deleteBranch
+);
 
 export default router;

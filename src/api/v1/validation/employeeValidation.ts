@@ -21,10 +21,20 @@ export const employeeSchemas = {
                 "string.empty": "Position cannot be empty",
             }),
 
+            department: Joi.string().required().messages({
+                "any.required": "Department is required",
+                "string.empty": "Department cannot be empty",
+            }),
+
             // Joi validation for email of employees
             email: Joi.string().required().messages({
                 "any.required": "Email is required",
                 "string.empty": "Email cannot be empty",
+            }),
+
+            phone: Joi.string().required().messages({
+                "any.required": "Phone is required",
+                "string.empty": "Phone cannot be empty",
             }),
 
             // Joi valdation for branchId of employees
@@ -55,6 +65,9 @@ update: {
             }),
             email: Joi.string().optional().messages({
                 "string.empty": "Email cannot be empty",
+            }),
+            phone: Joi.string().optional().messages({
+                "string.empty": "Phone cannot be empty",
             }),
             branchId: Joi.string().optional().messages({
                 "string.empty": "BranchId cannot be empty",
