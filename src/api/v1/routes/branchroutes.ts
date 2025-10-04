@@ -1,6 +1,6 @@
 import express, { Router  } from "express";
 import * as branchController from "../controllers/branchcontroller";
-import { validateRequest } from "../types/middleware/validate";
+import { validateRequest } from "../middleware/validate";
 import { branchSchemas } from "../validation/branchValidation";
 
 const router: Router = express.Router();
