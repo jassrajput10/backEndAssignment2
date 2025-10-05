@@ -72,7 +72,26 @@ export const createEmployee = async (data: {
 };
 
 
+/**
+ * Retrieves a single employee by ID from the database
+ * @param id - This ID of the employee to retrieve
+ * @returns The employee if found
+ */
+export const getEmployeeById = async (id: string): Promise<Employee> => {
+    const doc: DocumentSnapshot | null = await getDocumentById(COLLECTION, id);
 
+    if (!doc) {
+        throw new Error(`Employee with ID ${id} not found`);
+    }
+
+    const data: DocumentData | undefined = doc.data();
+    const employeeId: Employee = {
+        id: Number(doc.id),
+        ...data,
+    } as Employee;
+
+    return structuredClone(employeeId);
+};
 
 /**
  * Updates (replaces) an existing employee

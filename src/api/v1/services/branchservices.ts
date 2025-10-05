@@ -68,6 +68,27 @@ export const createBranch = async (newBranchData: {
 
 
 /**
+ * Retrieves branch by ID from the database
+ * @param id - This ID of the branch to retrieve
+ * @returns The branch if found
+ */
+export const getBranchById = async (id: string): Promise<branches> => {
+    const doc: DocumentSnapshot | null = await getDocumentById(COLLECTION, id);
+
+    if (!doc) {
+        throw new Error(`Employee with ID ${id} not found`);
+    }
+
+    const data: DocumentData | undefined = doc.data();
+    const branchId: branches = {
+        id: Number(doc.id),
+        ...data,
+    } as branches;
+
+    return structuredClone(branchId);
+};
+
+/**
  * updates an branch
  * @param id the id of hte branch to update
  * @param branchData this is the fields to update
