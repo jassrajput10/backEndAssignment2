@@ -4,7 +4,7 @@
  * This represents the sample employees
  */
 export interface Employee {
-    id: number;
+    id: string;
     name: string;
     position: string;
     department: string;

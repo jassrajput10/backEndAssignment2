@@ -28,7 +28,7 @@ export const getAllEmployees = async (): Promise<Employee[]> => {
         const employees: Employee[] = snapshot.docs.map((doc) => {
             const data: DocumentData = doc.data();
             return {
-                id: Number(doc.id),
+                id: doc.id,
                 ...data,
             
             } as Employee;
@@ -62,7 +62,7 @@ export const createEmployee = async (data: {
             ...data,
         };
 
-        const newId: number = Number(await createDocument(COLLECTION, newEmployee));
+        const newId: string = await createDocument(COLLECTION, newEmployee);
         newEmployee.id = newId;
 
         return structuredClone(newEmployee as Employee);
@@ -88,7 +88,7 @@ export const getEmployeeById = async (id: string): Promise<Employee> => {
 
     const data: DocumentData | undefined = doc.data();
     const employeeId: Employee = {
-        id: Number(doc.id),
+        id: doc.id,
         ...data,
     } as Employee;
 
@@ -103,12 +103,12 @@ export const getEmployeeById = async (id: string): Promise<Employee> => {
  * @throws Error if employee with given ID is not found
  */
 export const updateEmployee = async (
-    id: number,
+    id: string,
     employeedata: Pick<Employee, "name" | "position" | "department" | "email" | "phone" | "branchId">
 ): Promise<Employee> => {
         
     try {
-        const employee: Employee = await getEmployeeById(id.toString());
+        const employee: Employee = await getEmployeeById(id);
         if(!employee) {
             throw new Error(`Employee with ${id} not found`);
         }
@@ -148,9 +148,9 @@ export const updateEmployee = async (
  * @param id - The ID of the employee to delete
  * @throws Error if employee with given ID is not found
  */
-export const deleteEmployee = async (id:number): Promise<void> => {
+export const deleteEmployee = async (id: string): Promise<void> => {
     try {
-        const employee: Employee = await getEmployeeById(id.toString());
+        const employee: Employee = await getEmployeeById(id);
         if (!employee) {
             throw new Error(`Employee with ID ${id} not found`);
         }

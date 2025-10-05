@@ -2,7 +2,8 @@ import { Request, Response, NextFunction } from "express";
 import { HTTP_STATUS } from "../../../constants/httpConstants";
 import * as employeeservice from "../services/employeeservices"
 import { Employee } from "../models/employees";
-import { employees } from '../../../data/employees';
+
+import { successResponse } from "../models/responseModel";
 
 
 /**
@@ -19,10 +20,10 @@ export const getAllEmployees = async (
 ): Promise<void> => {
     try{
     const employees: Employee[] = await employeeservice.getAllEmployees();
-    res.status(HTTP_STATUS.OK).json({
-        message: "Employees data retrieved successfully",
-        data: employees,
-    });
+    res.status(HTTP_STATUS.OK).json(
+        successResponse(employees, "Employees data retrieved successfully")
+    
+    );
     } catch (error: unknown) {
         next(error);
     }
@@ -93,7 +94,7 @@ export const updateEmployee = async (
     next: NextFunction
 ): Promise<void> => {
     try {
-        if (Number.isNaN(Number(req.params.id))) {
+        if (Number.isNaN(req.params.id)) {
             res.status(HTTP_STATUS.BAD_REQUEST).json({
                 message:"Invalid ID number"
             });
@@ -126,7 +127,7 @@ export const updateEmployee = async (
 
         // extracting employee id
         
-        const id: number = Number(req.params.id);
+        const  id  = req.params.id;
 
         // extracting updated fields 
         const { name, position, department, email, phone, branchId } = req.body;
@@ -152,7 +153,7 @@ export const deleteEmployee = async (
     next: NextFunction
 ): Promise<void> => {
     try {
-        const id: number = Number(req.params.id);
+        const id = req.params.id;
 
         await employeeservice.deleteEmployee(id);
         res.status(HTTP_STATUS.OK).json({

@@ -28,7 +28,7 @@ describe("Employee Controller", () => {
         it("should handle successfull operation", async () => {
             const mockEmployees: Employee[] = [
                 {
-                    id: 1,
+                    id: "1",
                     name: "Alice Johnson",
                     position: "Branch Manager",
                     department: "Management",
@@ -47,6 +47,7 @@ describe("Employee Controller", () => {
 
             expect(mockRes.status).toHaveBeenCalledWith(HTTP_STATUS.OK);
             expect(mockRes.json).toHaveBeenNthCalledWith(1, {
+                status: "success",
                 message: "Employees data retrieved successfully",
                 data: mockEmployees,
             });
@@ -80,7 +81,7 @@ describe("Employee Controller", () => {
             };
 
             const mockEmployee: Employee = {
-                id: 30,
+                id: "30",
                 ...mockBody
             };
             mockReq.body = mockBody;
@@ -134,7 +135,7 @@ describe("Employee Controller", () => {
         };
       
       const mockEmployees: Employee = {
-        id : 123,
+        id : "123",
         ...Body,
       };
 

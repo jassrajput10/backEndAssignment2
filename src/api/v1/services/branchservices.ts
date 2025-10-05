@@ -129,19 +129,6 @@ export const updateBranch = async (
        }
 };
 
-/**
- *get branch by id
- * @param id the id of the branch
- */
-export const getBranchesById =  async (id:number): Promise<void> => {
-    const index: number = branchData.findIndex((emp: branches) => emp.id === id);
-    
-    if (index === -1) {
-        throw new Error("Branch with this ID is not found")
-    }
-
-};
-
 
 /**
  * this deletes the branch by id.
