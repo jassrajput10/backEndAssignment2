@@ -97,22 +97,36 @@ export const getBranchById = async (id: string): Promise<branches> => {
  */
 export const updateBranch = async (
     id: number,
-    branch: Pick<branches, "name" | "address"| "phone"> 
+    branchData: Pick<branches, "name" | "address"| "phone"> 
 ): Promise<branches> => {
-    const index: number = branchData.findIndex((b: branches) => b.id === id);
-
-    if (index === -1) {
-        throw new Error(`Branch with ID ${id} is not found`)
-    }
-
-    branchData[index] = {
-        ...branchData[index],
-        ...branch
-    };
-
-    return structuredClone(branchData[index]);
-
-
+   try {
+           const Branch: branches = await getBranchById(id.toString());
+           if(!Branch) {
+               throw new Error(`Branch with ${id} not found`);
+           }
+   
+           const updateBranch: branches = {
+               ...Branch,
+           };
+   
+           // this will update only provided employee fields
+   
+           if (branchData.name !== undefined) 
+               updateBranch.name = branchData.name;
+           if (branchData.address !== undefined)
+               updateBranch.address = branchData.address;
+           if (branchData.phone !== undefined) 
+               updateBranch.phone = branchData.phone;
+           
+           
+   
+           await updateDocument<branches>(COLLECTION, id.toString(), updateBranch);
+           
+           return structuredClone(updateBranch);
+       
+       } catch (error:unknown) {
+           throw error;
+       }
 };
 
 /**

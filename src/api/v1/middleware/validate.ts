@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { ObjectSchema } from "joi";
-import { MiddlewareFunction } from "../../types/express";
-import { HTTP_STATUS } from "../../../../constants/httpConstants";
+import { MiddlewareFunction } from "../types/express";
+import { HTTP_STATUS } from "../../../constants/httpConstants";
 
 /**
  * describe the interface requestchema for the parts to validated

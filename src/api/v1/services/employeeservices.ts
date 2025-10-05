@@ -104,24 +104,47 @@ export const updateEmployee = async (
     id: number,
     employeedata: Pick<Employee, "name" | "position" | "department" | "email" | "phone" | "branchId">
 ): Promise<Employee> => {
-    const index: number = employees.findIndex((employee: Employee) => employee.id === id)
+        
+    try {
+        const employee: Employee = await getEmployeeById(id.toString());
+        if(!employee) {
+            throw new Error(`Employee with ${id} not found`);
+        }
 
-    if (index === -1) {
-        throw new Error(`Employee with this Id ${id} not found`);
+        const updateEmployee: Employee = {
+            ...employee,
+        };
 
+        // this will update only provided employee fields
+
+        if (employeedata.name !== undefined) 
+            updateEmployee.name = employeedata.name;
+        if (employeedata.position !== undefined)
+            updateEmployee.position = employeedata.position;
+        if (employeedata.department !== undefined) 
+            updateEmployee.department = employeedata.department;
+        if (employeedata.email !== undefined)
+            updateEmployee.email = employeedata.email;
+        if (employeedata.phone !== undefined)
+            updateEmployee.phone = employeedata.phone;
+        if (employeedata.branchId !== undefined)
+            updateEmployee.branchId = employeedata.branchId;
+        
+
+        await updateDocument<Employee>(COLLECTION, id.toString(), updateEmployee);
+        
+        return structuredClone(updateEmployee);
+    
+    } catch (error:unknown) {
+        throw error;
     }
-    employees[index] = {
-        ...employees[index],
-        ...employeedata,
-    };
-
-    return structuredClone(employees[index]);
+    
 };
 
 /**
- * Deletes a branch from storage
- * @param id - The ID of the branch to delete
- * @throws Error if branch with given ID is not found
+ * Deletes a employee from storage
+ * @param id - The ID of the employee to delete
+ * @throws Error if employee with given ID is not found
  */
 export const deleteEmployee = async (id:number): Promise<void> => {
     const index: number = employees.findIndex((employee: Employee) => employee.id === id);
@@ -134,6 +157,3 @@ export const deleteEmployee = async (id:number): Promise<void> => {
     employees.splice(index, 1);
 };
 
-//export const getEmployeeById = async (
-  //  id: number
-//): Promise<Employee
