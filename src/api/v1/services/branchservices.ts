@@ -49,19 +49,23 @@ export const createBranch = async (newBranchData: {
     phone: string;
     }
 ): Promise<branches> => {
-    const newBranch: branches = {
-        id: Date.now(),
-        name: newBranchData.name,
-        address: newBranchData.address,
-        phone: newBranchData.phone,
-    };
+    try{
+        const branchnew: Partial<branches> = {
+            ...newBranchData,
+        };
+
+        const newId: number = Number(await createDocument(COLLECTION, branchnew));
+        branchnew.id = newId;
+
+        return structuredClone(branchnew as branches);
+    } catch (error: unknown) {
+        throw error;
+    }
+
     
-    branchData.push(newBranch)
-
-    return structuredClone(newBranch)
-
-
 };
+
+
 
 /**
  * updates an branch
