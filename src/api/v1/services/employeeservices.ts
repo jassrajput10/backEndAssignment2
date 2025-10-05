@@ -12,6 +12,8 @@ import {
     updateDocument,
     deleteDocument,
 } from "../repositories/firestoreRepository";
+import { number } from "node_modules/joi/lib";
+import { error } from "console";
 
 //reference to the firestore collection name
 const COLLECTION: string = "employees";
@@ -147,13 +149,15 @@ export const updateEmployee = async (
  * @throws Error if employee with given ID is not found
  */
 export const deleteEmployee = async (id:number): Promise<void> => {
-    const index: number = employees.findIndex((employee: Employee) => employee.id === id);
+    try {
+        const employee: Employee = await getEmployeeById(id.toString());
+        if (!employee) {
+            throw new Error(`Employee with ID ${id} not found`);
+        }
 
-    if (index === -1) {
-        throw new Error(`Employee with this Id ${id} not found`);
-
+        await deleteDocument(COLLECTION, id.toString());
+    } catch (error: unknown) {
+        throw error;
     }
-
-    employees.splice(index, 1);
 };
 

@@ -150,11 +150,14 @@ export const getBranchesById =  async (id:number): Promise<void> => {
  * if the id is not found it throws a error.
  */
 export const deleteBranch = async (id:number): Promise<void> => {
-    const index: number = branchData.findIndex((b: branches) => b.id === id);
-
-    if (index === -1) {
-        throw new Error(`Branch with ID ${id} is not found`)
+    try {
+        const branch: branches = await getBranchById(id.toString());
+        if (!branch) {
+            throw new Error(`Branch with ID ${id} not found`);
+        }
+   
+        await deleteDocument(COLLECTION, id.toString());
+    } catch (error: unknown) {
+        throw error;
     }
-
-    branchData.splice(index,1);
 };
