@@ -1,5 +1,10 @@
 import Joi, { any } from "joi";
 
+
+/**
+ * Branch schema organised bt request type
+ * This validation will ensure that required fields are present and filled according to the given requirements
+ */
 export const branchSchemas = {
     // POST /api/v1/branches - Create new branch
 

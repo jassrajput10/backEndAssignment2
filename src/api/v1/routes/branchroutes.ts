@@ -6,6 +6,7 @@ import { branchSchemas } from "../validation/branchValidation";
 const router: Router = express.Router();
 
 router.get("/", branchController.getAllBranches);
+router.get("/:id", branchController.getBranchById);
 router.post(
     "/",
     validateRequest(branchSchemas.create),

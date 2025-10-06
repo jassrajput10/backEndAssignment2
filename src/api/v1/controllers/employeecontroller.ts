@@ -146,6 +146,40 @@ export const updateEmployee = async (
     };
 };
 
+/**
+ * Retrieves a single employee by ID
+ * @param req - The express Request
+ * @param res - The express Response
+ * @param next - The express middleware chaining function
+ */
+export const getEmployeeById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const id = req.params.id;
+
+    if (!id) {
+      res.status(HTTP_STATUS.BAD_REQUEST).json({
+        message: "Employee ID is required.",
+      });
+      return;
+    }
+
+    const employee = await employeeservice.getEmployeeById(id);
+
+    res.status(HTTP_STATUS.OK).json({
+      status: "success",
+      message: "Employee retrieved successfully",
+      data: employee,
+    });
+  } catch (error: unknown) {
+    next(error);
+  }
+};
+
+
 
 export const deleteEmployee = async (
     req: Request,

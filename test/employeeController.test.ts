@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { HTTP_STATUS } from "../src/constants/httpConstants";
-import * as employeeController from "../src/api/v1/controllers/employeecontrollers";
+import * as employeeController from "../src/api/v1/controllers/employeecontroller";
 import * as employeeservice from "../src/api/v1/services/employeeservices";
 import { Employee } from "../src/api/v1/models/employees"; 
 import { mock } from "node:test";

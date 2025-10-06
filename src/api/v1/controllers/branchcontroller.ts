@@ -19,7 +19,7 @@ export const getAllBranches = async (
     try {
         const branch: branches[] = await branchServices.getAllBranches();
         res.status(HTTP_STATUS.OK).json(
-            successResponse(branch, "Branches successfully retrived")
+            successResponse(branch, "Branches successfully retrieved")
         );
     } catch (error: unknown) {
         next(error)
@@ -79,7 +79,7 @@ export const updateBranch = async (
     next: NextFunction
 ): Promise<void> => {
     try{
-        if (Number.isNaN(Number(req.params.id))) {
+        if (Number.isNaN(req.params.id)) {
             res.status(HTTP_STATUS.BAD_REQUEST).json({
                 message:"Invalid ID number"
             });
@@ -96,13 +96,13 @@ export const updateBranch = async (
                 message:"Branch phone is required"
             });
         } else {
-            const id: number = Number(req.params.id)
+            const id = req.params.id;
             // extracting all of the fields (destructuring)
             const {name, address, phone} = req.body;
 
-            const updatedBranch: branches = await branchServices.updateBranch(id,{name, address, phone});
+            const branchupdate: branches = await branchServices.updateBranch(id,{name, address, phone});
             res.status(HTTP_STATUS.OK).json(
-                successResponse(updateBranch, "Branch updated successfully")
+                successResponse(branchupdate, "Branch updated successfully")
             )
         }
     } catch (error: unknown) {
@@ -111,6 +111,38 @@ export const updateBranch = async (
 };
 
 
+/**
+ * Retrieves a single branch by ID
+ * @param req - The express Request
+ * @param res - The express Response
+ * @param next - The express middleware chaining function
+ */
+export const getBranchById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const id = req.params.id;
+
+    if (!id) {
+      res.status(HTTP_STATUS.BAD_REQUEST).json({
+        message: "Branch ID is required.",
+      });
+      return;
+    }
+
+    const branch = await branchServices.getBranchById(id);
+
+    res.status(HTTP_STATUS.OK).json({
+      status: "success",
+      message: "Branch retrieved successfully",
+      data: branch,
+    });
+  } catch (error: unknown) {
+    next(error);
+  }
+};
 
 
 /**
@@ -128,9 +160,9 @@ export const deleteBranch = async (
     try {
         const id: string = req.params.id;
 
-        await branchServices.deleteBranch(Number(id));
+        await branchServices.deleteBranch(id);
         res.status(HTTP_STATUS.OK).json(
-            successResponse("Branch deleted successfully")
+            successResponse(null, "Branch deleted successfully")
         );
     } catch (error: unknown) {
         next(error);

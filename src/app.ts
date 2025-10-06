@@ -50,7 +50,7 @@ app.get("/api/v1/health", (req: Request, res: Response) => {
 });
 
 app.use("/api/v1/routes", employeeRoutes);
-app.use("/api/v1/branches", branchRoutes)
+app.use("/api/v1/branches", branchRoutes);
 
 
 export default app;

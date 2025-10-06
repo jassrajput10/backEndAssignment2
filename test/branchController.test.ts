@@ -28,7 +28,7 @@ describe("branch Controller", () => {
         it("it should handle sucessful operation", async () => {
             const mockBranches: branches[] = [
                 { 
-                id: 1, 
+                id: "1", 
                 name: "winnipeg",
                 address: "123 abbotsford",
                 phone: "204-134-5455",
@@ -44,7 +44,8 @@ describe("branch Controller", () => {
 
             expect(mockRes.status).toHaveBeenCalledWith(HTTP_STATUS.OK);
             expect(mockRes.json).toHaveBeenCalledWith({
-                message: "Employees retrieved sucessfully",
+                status: "success",
+                message: "Branches successfully retrieved",
                 data: mockBranches,
             });
         });
@@ -60,7 +61,7 @@ describe("branch Controller", () => {
             };
 
             const mockBranch: branches = {
-                id: 2,
+                id: "2",
                 ...mockBody,
             };
 
@@ -75,6 +76,7 @@ describe("branch Controller", () => {
 
             expect(mockRes.status).toHaveBeenCalledWith(HTTP_STATUS.CREATED);
             expect(mockRes.json).toHaveBeenCalledWith({
+                status: "success",
                 message: "Branch created successfully",
                 data: mockBranch,
             });
@@ -83,7 +85,7 @@ describe("branch Controller", () => {
         // test with missing paramater name
         it("should return 400 when name is missing", async () => {
             mockReq.body = {
-                id: 1, 
+                id: "1", 
                 address: "123 abbotsford",
                 phone: "204-134-5455",
             };
@@ -110,7 +112,7 @@ describe("branch Controller", () => {
             };
 
             const mockBranch: branches = {
-                id: 123,
+                id: "123",
                 ...Body,
             };
 
@@ -125,6 +127,7 @@ describe("branch Controller", () => {
 
             expect(mockRes.status).toHaveBeenCalledWith(HTTP_STATUS.OK);
             expect(mockRes.json).toHaveBeenCalledWith({
+                status: "success",
                 message: "Branch updated successfully",
                 data: mockBranch,
             });
@@ -163,7 +166,9 @@ describe("branch Controller", () => {
 
             expect(mockRes.status).toHaveBeenCalledWith(HTTP_STATUS.OK);
             expect(mockRes.json).toHaveBeenCalledWith({
-            message: "branch deleted successfully",
+                status: "success",
+                message: "Branch deleted successfully",
+                data: null
         });
     });
 });

@@ -1,11 +1,13 @@
 import request from "supertest";
 import app from "../src/app";
-import * as employeeController from "../src/api/v1/controllers/employeecontrollers";
+import * as employeeController from "../src/api/v1/controllers/employeecontroller";
 import { HTTP_STATUS } from "../src/constants/httpConstants";
+import { getEmployeeById } from "src/api/v1/services/employeeservices";
 
 
-jest.mock("../src/api/v1/controllers/employeecontrollers", () => ({
+jest.mock("../src/api/v1/controllers/employeecontroller", () => ({
     getAllEmployees: jest.fn((req, res) => res.status(HTTP_STATUS.OK).send()),
+    getEmployeeById: jest.fn((req, res) => res.status(HTTP_STATUS.OK).send()),
     createEmployee: jest.fn((req, res) => res.status(HTTP_STATUS.CREATED).send()),
     updateEmployee: jest.fn((req, res) => res.status(HTTP_STATUS.OK).send()),
     deleteEmployee: jest.fn((req, res) => res.status(HTTP_STATUS.OK).send()),
@@ -19,7 +21,7 @@ describe("Employee Routes", () => {
     
     
     describe("GET /api/v1/routes/", () => {
-        it("should call getAallEmployees controller", async () => {
+        it("should call getAllEmployees controller", async () => {
             await request(app).get("/api/v1/routes/");
             expect(employeeController.getAllEmployees).toHaveBeenCalled();
         });

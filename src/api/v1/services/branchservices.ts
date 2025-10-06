@@ -14,7 +14,7 @@ import {
     deleteDocument,
 } from "../repositories/firestoreRepository";
 
-const COLLECTION: string = "branches";
+const COLLECTION: string = "branchData";
 
 /**
  * gets all branches
@@ -23,10 +23,10 @@ const COLLECTION: string = "branches";
 export const getAllBranches = async(): Promise<branches[]> => {
     try {
         const snapshot: QuerySnapshot = await getDocuments(COLLECTION);
-        const branches: branches[] = snapshot.docs.map((doc) => {
+        const branchData: branches[] = snapshot.docs.map((doc) => {
             const data: DocumentData = doc.data();
             return {
-                id: Number(doc.id),
+                id: doc.id,
                 ...data,
             } as branches;
         });
@@ -54,7 +54,7 @@ export const createBranch = async (newBranchData: {
             ...newBranchData,
         };
 
-        const newId: number = Number(await createDocument(COLLECTION, branchnew));
+        const newId: string = await createDocument(COLLECTION, branchnew);
         branchnew.id = newId;
 
         return structuredClone(branchnew as branches);
@@ -81,7 +81,7 @@ export const getBranchById = async (id: string): Promise<branches> => {
 
     const data: DocumentData | undefined = doc.data();
     const branchId: branches = {
-        id: Number(doc.id),
+        id: doc.id,
         ...data,
     } as branches;
 
@@ -96,7 +96,7 @@ export const getBranchById = async (id: string): Promise<branches> => {
  * @throws error if branch with given id is not found
  */
 export const updateBranch = async (
-    id: number,
+    id: string,
     branchData: Pick<branches, "name" | "address"| "phone"> 
 ): Promise<branches> => {
    try {
@@ -130,13 +130,14 @@ export const updateBranch = async (
 };
 
 
+
 /**
  * this deletes the branch by id.
  * @param id this is the branch id number.
  * this finds the branch by id and removes it .
  * if the id is not found it throws a error.
  */
-export const deleteBranch = async (id:number): Promise<void> => {
+export const deleteBranch = async (id:string): Promise<void> => {
     try {
         const branch: branches = await getBranchById(id.toString());
         if (!branch) {

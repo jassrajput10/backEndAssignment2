@@ -8,6 +8,7 @@ import { HTTP_STATUS } from "../src/constants/httpConstants";
 
 jest.mock("../src/api/v1/controllers/branchcontroller", () => ({
     getAllBranches: jest.fn((req, res) => res.status(HTTP_STATUS.OK).send()),
+    getBranchById: jest.fn((req, res) => res.status(HTTP_STATUS.OK).send()),
     createBranch: jest.fn((req, res) => res.status(HTTP_STATUS.CREATED).send()),
     updateBranch: jest.fn((req, res) => res.status(HTTP_STATUS.OK).send()),
     deleteBranch: jest.fn((req, res) => res.status(HTTP_STATUS.OK).send()),

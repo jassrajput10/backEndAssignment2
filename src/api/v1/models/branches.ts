@@ -2,7 +2,7 @@
  * this represents the branch data.
  */
 export interface branches {
-    id: number;
+    id: string;
     name: string;
     address: string;
     phone: string;
