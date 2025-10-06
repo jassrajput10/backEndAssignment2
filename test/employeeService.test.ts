@@ -53,26 +53,6 @@ describe("Employee Service", () => {
         expect(result.name).toBe(mockEmployeeData.name);
     });
 
-    it("should update an employee successfully", async() => {
-        const mockdocumentId = "test-employee-id";
-        const oldemployee: Employee = {
-            id: mockdocumentId,
-            name: "Test Employee",
-            position: "Test position",
-            department: "Test department",
-            email: "Test email",
-            phone: "Test phone",
-            branchId: "Test branchId",
-        };
 
-        const updateEmployee = {
-            name: "update Employee",
-            position: "update position",
-            department: "update department",
-            email: "update email",
-            phone: "update phone",
-            branchId: "update branchId",
-        };
-        
-    })
+
 });    
