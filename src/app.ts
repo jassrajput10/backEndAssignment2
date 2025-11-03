@@ -1,5 +1,5 @@
 import express, { Express, Request, Response } from "express";
-
+import helmet from "helmet";
 // Importing morgan
 import morgan from "morgan";
 
@@ -15,6 +15,8 @@ const app: Express = express();
 // Use morgan for HTTP request logging
 app.use(morgan("combined"));
 app.use(express.json());
+// Apply basic Helmet security
+app.use(helmet());
 
 
 
