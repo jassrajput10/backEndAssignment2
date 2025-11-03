@@ -1,11 +1,12 @@
 import express, { Express, Request, Response } from "express";
 import helmet from "helmet";
-// Importing morgan
+import cors from "cors";
 import morgan from "morgan";
 
 import employeeRoutes from "./api/v1/routes/employeeroutes"
 import branchRoutes from "./api/v1/routes/branchroutes"
 import dotenv from "dotenv";
+import { getHelmetConfig } from "../config/helmetConfig";
 
 // Load environment variables BEFORE you internal imports!
 dotenv.config();
@@ -14,9 +15,8 @@ const app: Express = express();
 
 // Use morgan for HTTP request logging
 app.use(morgan("combined"));
-app.use(express.json());
-// Apply basic Helmet security
-app.use(helmet());
+
+
 
 
 
@@ -29,8 +29,13 @@ interface HealthCheckResponse {
     version: string;
 }
 
+// Apply basic Helmet security
+app.use(helmet());
+app.use(helmet(getHelmetConfig()));
+
 // Ensures incoming body is correctly parsed to JSON, otherwise req.body would be undefined
 app.use(express.json());
+
 
 // Middleware END
 
