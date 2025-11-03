@@ -5,7 +5,10 @@ import morgan from "morgan";
 
 import employeeRoutes from "./api/v1/routes/employeeroutes"
 import branchRoutes from "./api/v1/routes/branchroutes"
-import { HTTP_STATUS } from "../src/constants/httpConstants";
+import dotenv from "dotenv";
+
+// Load environment variables BEFORE you internal imports!
+dotenv.config();
 
 const app: Express = express();
 
