@@ -7,6 +7,7 @@ import employeeRoutes from "./api/v1/routes/employeeroutes"
 import branchRoutes from "./api/v1/routes/branchroutes"
 import dotenv from "dotenv";
 import { getHelmetConfig } from "../config/helmetConfig";
+import { getCorsConfig } from "../config/corsConfig";
 
 // Load environment variables BEFORE you internal imports!
 dotenv.config();
@@ -32,6 +33,8 @@ interface HealthCheckResponse {
 // Apply basic Helmet security
 app.use(helmet());
 app.use(helmet(getHelmetConfig()));
+app.use(cors());
+app.use(cors(getCorsConfig()));
 
 // Ensures incoming body is correctly parsed to JSON, otherwise req.body would be undefined
 app.use(express.json());
