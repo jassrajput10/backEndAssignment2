@@ -1,21 +1,18 @@
-import swaggerJsdoc, { Options } from "swagger-jsdoc";
+import swaggerJsdoc from "swagger-jsdoc";
 
-const serverUrl: string =
-    process.env.SWAGGER_SERVER_URL || "http://localhost:3000/api/v1";
-
-const swaggerOptions: Options = {
+const swaggerOptions: swaggerJsdoc.Options = {
     definition: {
-        openapi: "3.1.0",
+        openapi: "3.0.0",
         info: {
-            title: "Demo Application API Documentation",
+            title: "Task Management API Documentation",
             version: "1.0.0",
             description:
-                "This is the API documentation for our in class demo application",
+                "This is the API documentation for the Task Management application.",
         },
         servers: [
             {
-                url: serverUrl,
-                description: process.env.NODE_ENV,
+                url: "http://localhost:3000/api/v1",
+                description: "Local server",
             },
         ],
         components: {
@@ -33,9 +30,10 @@ const swaggerOptions: Options = {
             },
         ],
     },
-    apis: ["./src/api/v1/routes/*.ts", "./src/api/v1/validations/*.ts"],
+    apis: ["./src/api/v1/routes/*.ts", "./src/api/v1/validations/*.ts"], // Path to the API docs and schemas
 };
 
+// Generate the Swagger spec
 export const generateSwaggerSpec = (): object => {
     return swaggerJsdoc(swaggerOptions);
 };
