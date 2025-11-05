@@ -30,6 +30,30 @@ const router: Router = express.Router();
  */
 // routes are declare by passing the refrences her
 router.get("/", employeeController.getAllEmployees);
+
+/**
+ * @openapi
+ * get: 
+ *    summary: retrieve a specific employee by id
+ *    tags: [Employees]
+ *    parameters:
+ *      - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The unique identifier of the employee
+ *     responses:
+ *       200:
+ *         description: Employee details
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Employee'
+ *       404:
+ *         description: Employee not found
+ *
+ */
 router.get("/:id", employeeController.getEmployeeById)
 router.post(
     "/",
