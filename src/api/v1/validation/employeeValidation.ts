@@ -1,5 +1,63 @@
 import Joi from "joi";
 
+
+
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     Employee:
+ *       type: object
+ *       required:
+ *         - id
+ *         - name
+ *         - position
+ *         - department
+ *         - email
+ *         - phone
+ *         - branchId
+ *         - createdAt
+ *         - updatedAt
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: The unique identifier for an Employee
+ *           example: "emp123abc"
+ *         name:
+ *           type: string
+ *           description: The name of the Employee
+ *           example: "John Doe"
+ *         position:
+ *           type: string
+ *           description: The position of the Employee
+ *           example: "Software Engineer"
+ *         department:
+ *           type: string
+ *           description: The department of the Employee
+ *           example: "Engineering"
+ *         email:
+ *           type: string
+ *           description: The email of the Employee
+ *           example: "john.doe@company.com"
+ *         phone:
+ *           type: string
+ *           description: The phone number of the Employee
+ *           example: "+1234567890"
+ *         branchId:
+ *           type: string
+ *           description: The branch ID the Employee belongs to
+ *           example: "branch456xyz"
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *           description: The date and time the Employee was created
+ *           example: "2025-01-01T12:00:00"
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
+ *           description: The date and time the Employee was last updated
+ *           example: "2025-01-01T12:00:00"
+ */
 /**
  * Employee schema organised bt request type
  * This validation will ensure that required fields are present and filled according to the given requirements
