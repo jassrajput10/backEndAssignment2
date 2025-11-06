@@ -33,27 +33,28 @@ router.get("/", employeeController.getAllEmployees);
 
 /**
  * @openapi
- * get: 
- *    summary: retrieve a specific employee by id
- *    tags: [Employees]
- *    parameters:
- *      - name: id
+ * /employees/{id}:
+ *   get:
+ *     summary: Retrieve a specific employee by ID
+ *     tags: [Employees]
+ *     parameters:
+ *       - name: id
  *         in: path
  *         required: true
  *         schema:
  *           type: string
  *         description: The unique identifier of the employee
  *     responses:
- *       200:
+ *       '200':
  *         description: Employee details
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Employee'
- *       404:
+ *       '404':
  *         description: Employee not found
- *
  */
+
 router.get("/:id", employeeController.getEmployeeById)
 
 /**
@@ -134,7 +135,7 @@ router.post(
  *           schema:
  *             type: object
  *             properties:
- *             name:
+ *               name:
  *                 type: string
  *                 example: "jss"
  *               position:
@@ -146,7 +147,7 @@ router.post(
  *               email:
  *                 type: string
  *                 format: email
- *                 example: "jass@rrc,ca"
+ *                 example: "jass@rrc.ca"
  *               phone:
  *                 type: string
  *                 example: "1234567890"
@@ -154,15 +155,15 @@ router.post(
  *                 type: string
  *                 example: "1"
  *     responses:
- *       200:
+ *       '200':
  *         description: Employee updated successfully
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Employee'
- *       400:
+ *       '400':
  *         description: Invalid input data
- *       404:
+ *       '404':
  *         description: Employee not found
  */
 router.put(

@@ -1,10 +1,13 @@
 import fs from "fs";
+import dotenv from "dotenv";
+import { Options } from "swagger-jsdoc";
+
+dotenv.config();
+
 import { generateSwaggerSpec } from "../config/swaggerOption";
 
-// Get the specs using our shared configuration
-const specs = generateSwaggerSpec();
+const swaggerSpecs: Options = generateSwaggerSpec();
 
-// Write specs to a JSON file
-fs.writeFileSync("./openapi.json", JSON.stringify(specs, null, 2));
+fs.writeFileSync("./openapi.json", JSON.stringify(swaggerSpecs, null, 2));
 
 console.log("OpenAPI specification generated successfully!");

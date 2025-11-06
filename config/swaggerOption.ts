@@ -24,6 +24,7 @@ const swaggerOptions: swaggerJsdoc.Options = {
                 },
             },
         },
+        
         security: [
             {
                 bearerAuth: [],
