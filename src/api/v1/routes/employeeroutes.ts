@@ -113,6 +113,58 @@ router.post(
     employeeController.createEmployee
 );
 
+
+/**
+ * @openapi
+ * /employees/{id}:
+ *   put:
+ *     summary: Update a specific employee's information
+ *     tags: [Employees]
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The unique identifier of the employee
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *             name:
+ *                 type: string
+ *                 example: "jss"
+ *               position:
+ *                 type: string
+ *                 example: "student"
+ *               department:
+ *                 type: string
+ *                 example: "ad&d"
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: "jass@rrc,ca"
+ *               phone:
+ *                 type: string
+ *                 example: "1234567890"
+ *               branchId:
+ *                 type: string
+ *                 example: "1"
+ *     responses:
+ *       200:
+ *         description: Employee updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Employee'
+ *       400:
+ *         description: Invalid input data
+ *       404:
+ *         description: Employee not found
+ */
 router.put(
     "/:id",
     validateRequest(employeeSchemas.update),
