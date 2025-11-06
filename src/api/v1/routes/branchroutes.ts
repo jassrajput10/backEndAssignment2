@@ -24,7 +24,32 @@ const router: Router = express.Router();
  *
  */
 router.get("/", branchController.getAllBranches);
-router.get("/", branchController.getAllBranches);
+
+
+/**
+ * @openapi
+ * /branches/{id}:
+ *   get:
+ *     summary: Retrieve a specific branch by ID
+ *     tags: [Branches]
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The unique identifier of the branch
+ *     responses:
+ *       200:
+ *         description: Branch details
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Branch'
+ *       404:
+ *         description: Branch not found
+ *
+ */
 router.get("/:id", branchController.getBranchById);
 router.post(
     "/",
