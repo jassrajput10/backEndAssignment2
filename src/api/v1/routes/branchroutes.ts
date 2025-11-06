@@ -97,6 +97,48 @@ router.post(
     validateRequest(branchSchemas.create),
     branchController.createBranch
 );
+
+/**
+ * @openapi
+ * /branches/{id}:
+ *   put:
+ *     summary: Update a specific branch's information
+ *     tags: [Branches]
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The unique identifier of the branch
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 example: "rrc"
+ *               address:
+ *                 type: string
+ *                 example: "160 princess street"
+ *               phone:
+ *                 type: string
+ *                 example: "1234567890"
+ *     responses:
+ *       200:
+ *         description: Branch updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Branch'
+ *       400:
+ *         description: Invalid input data
+ *       404:
+ *         description: Branch not found
+ */
 router.put(
     "/:id",
     validateRequest(branchSchemas.update),
