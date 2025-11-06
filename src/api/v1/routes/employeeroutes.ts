@@ -55,16 +55,70 @@ router.get("/", employeeController.getAllEmployees);
  *
  */
 router.get("/:id", employeeController.getEmployeeById)
+
+/**
+ * @openapi
+ * /employees:
+ *   post:
+ *     summary: Create a new Employee
+ *     tags: [Employees]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - name
+ *               - position
+ *               - department
+ *               - email
+ *               - phone
+ *               - branchId
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 example: "jss"
+ *               position:
+ *                 type: string
+ *                 example: "student"
+ *               department:
+ *                 type: string
+ *                 example: "ad&d"
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: "jass@rrc,ca"
+ *               phone:
+ *                 type: string
+ *                 example: "1234567890"
+ *               branchId:
+ *                 type: string
+ *                 example: "1"
+ *     responses:
+ *       201:
+ *         description: Employee created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *                 $ref: '#/components/schemas/Employee'
+ *       400:
+ *         description: Invalid input data
+ *       409:
+ *         description: Employee with this email already exists
+ */
 router.post(
     "/",
     validateRequest(employeeSchemas.create),
     employeeController.createEmployee
 );
+
 router.put(
     "/:id",
     validateRequest(employeeSchemas.update),
     employeeController.updateEmployee
 );
+
 router.delete(
     "/:id",
     validateRequest(employeeSchemas.delete),
