@@ -1,6 +1,46 @@
 import Joi, { any } from "joi";
 
-
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     Branch:
+ *       type: object
+ *       required:
+ *         - id
+ *         - name
+ *         - address
+ *         - phone
+ *         - createdAt
+ *         - updatedAt
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: The unique identifier for a Branch
+ *           example: "branch123abc"
+ *         name:
+ *           type: string
+ *           description: The name of the Branch
+ *           example: "exchange district Branch"
+ *         address:
+ *           type: string
+ *           description: The address of the Branch
+ *           example: "160 princess street"
+ *         phone:
+ *           type: string
+ *           description: The phone number of the Branch
+ *           example: "1234567890"
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *           description: The date and time the Branch was created
+ *           example: "2025-01-01T12:00:00"
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
+ *           description: The date and time the Branch was last updated
+ *           example: "2025-01-01T12:00:00"
+ */
 /**
  * Branch schema organised bt request type
  * This validation will ensure that required fields are present and filled according to the given requirements

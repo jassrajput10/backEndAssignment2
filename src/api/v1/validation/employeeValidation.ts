@@ -26,27 +26,27 @@ import Joi from "joi";
  *         name:
  *           type: string
  *           description: The name of the Employee
- *           example: "John Doe"
+ *           example: "Jas"
  *         position:
  *           type: string
  *           description: The position of the Employee
- *           example: "Software Engineer"
+ *           example: "student"
  *         department:
  *           type: string
  *           description: The department of the Employee
- *           example: "Engineering"
+ *           example: "it"
  *         email:
  *           type: string
  *           description: The email of the Employee
- *           example: "john.doe@company.com"
+ *           example: "jass@rrc.ca"
  *         phone:
  *           type: string
  *           description: The phone number of the Employee
- *           example: "+1234567890"
+ *           example: "1234567890"
  *         branchId:
  *           type: string
  *           description: The branch ID the Employee belongs to
- *           example: "branch456xyz"
+ *           example: "1"
  *         createdAt:
  *           type: string
  *           format: date-time
