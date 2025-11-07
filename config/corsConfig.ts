@@ -17,5 +17,8 @@ export const getCorsConfig = (): CorsOptions => {
         credentials: true,
         methods: ["GET", "POST", "PUT", "DELETE"],
         allowedHeaders: ["Content-Type", "Authorization"],
+
+        // NEW: Only expose specific headers to the frontend for security
+        exposedHeaders: ["X-RateLimit-Remaining", "X-RateLimit-Reset"],
     } as CorsOptions;
 };

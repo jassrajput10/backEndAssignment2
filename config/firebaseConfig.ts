@@ -4,6 +4,8 @@
  * This module handles the initialization of Firebase Admin SDK for server-side
  * operations. It sets up authentication and Firestore database connections.
  */
+import dotenv from "dotenv";
+dotenv.config();
 
 import {
     initializeApp,

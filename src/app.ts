@@ -1,11 +1,12 @@
 import express, { Express, Request, Response } from "express";
+import dotenv from "dotenv";
 import helmet from "helmet";
 import cors from "cors";
 import morgan from "morgan";
 
 import employeeRoutes from "./api/v1/routes/employeeroutes";
 import branchRoutes from "./api/v1/routes/branchroutes";
-import dotenv from "dotenv";
+
 import { getHelmetConfig } from "../config/helmetConfig";
 import { getCorsConfig } from "../config/corsConfig";
 import setupSwagger from "../config/swagger";
